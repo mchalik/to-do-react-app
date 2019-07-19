@@ -23,6 +23,8 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "@material-ui/core": "^4.2.1",
+    "@material-ui/icons": "^4.2.1",
     "npm": "^6.10.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

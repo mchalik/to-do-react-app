@@ -1,4 +1,24 @@
-h1 {
-    color: #27aedb;
-    text-align: center;
-}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400; }
+body {
+  font-family: "Roboto", sans-serif; }
+  body #logo {
+    width: 10rem; }
+  body .container {
+    text-align: center; }
+    body .container img {
+      width: 20rem; }
+  body .input {
+    display: flex;
+    margin-bottom: 24px; }
+    body .input__add {
+      margin-left: 16px; }
+  body .deed {
+    display: flex;
+    align-items: center; }
+    body .deed__delete {
+      margin-left: auto; }
+
+/*# sourceMappingURL=App.css.map */

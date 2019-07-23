@@ -2,6 +2,7 @@ $font-stack: 'Roboto',sans-serif;
 
 
 @font-face {
+
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -9,6 +10,8 @@ $font-stack: 'Roboto',sans-serif;
 
 body {
     font-family: $font-stack;
+    margin-top: 150px;
+
     #logo {
         width: 10rem;
     }
@@ -26,15 +29,45 @@ body {
 
         &__add {
             margin-left: 16px;
+            flex-shrink: 0;
         }
     }
 
     .deed {
         display: flex;
         align-items: center;
+        animation: fadeIn, .3s;
 
         &__delete {
             margin-left: auto;
         }
     }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+.example-appear {
+    opacity: 0.01;
+}
+
+.example-appear.example-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+    opacity: 1;
+}
+
+.example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
 }

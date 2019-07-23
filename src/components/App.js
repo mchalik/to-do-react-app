@@ -1,9 +1,8 @@
 import React, { Component } from "react";
+import Container from '@material-ui/core/Container'
 import Input from './Input.js';
 import Deed from './Deed.js';
-
-import Container from '@material-ui/core/Container'
-import '../styles/App.scss';
+import '../styles/App.css';
 
 class App extends Component {
     constructor(props) {
@@ -24,7 +23,9 @@ class App extends Component {
             input: e.target.value
         })
     }
-    addDeed() {
+    addDeed(e) {
+        e.preventDefault();
+        console.log(e);
         if (this.state.input === '') return;
 
         const historyCopy = this.state.history.slice();
@@ -37,18 +38,20 @@ class App extends Component {
         }]);
         this.setState({
             history: historyCopy,
-            input: ''
+            input: '',
+            currentView: this.state.currentView + 1
         });
 
     }
-    deleteDeed(num) {
+    deleteDeed( num ) {
         const historyCopy = this.state.history.slice();
         const lastEntry = historyCopy[historyCopy.length - 1];
         const reducedEntry = lastEntry.filter(({order}) => order !== num );
 
         historyCopy.push(reducedEntry);
         this.setState({
-            history: historyCopy
+            history: historyCopy,
+            currentView: this.state.currentView + 1
         })
     }
     render() {
@@ -68,7 +71,7 @@ class App extends Component {
                 <Input currentValue={this.state.input} onChange={this.handleChange} addDeed={this.addDeed} />
                 {thingsList}
 
-                {this.currentView && button}
+                {!!this.state.currentView && <div>Show something</div>}
             </Container>
         );
     }

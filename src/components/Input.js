@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 function Input({currentValue, onChange, addDeed}) {
     return (
-        <form action="">
+        <form onSubmit={addDeed} action="">
             <div className="input">
                 <TextField
                     margin="normal"
@@ -13,7 +13,7 @@ function Input({currentValue, onChange, addDeed}) {
                     value={currentValue}
                     fullWidth
                 />
-                <Fab className="input__add" color="secondary" aria-label="Add" onClick={addDeed}>
+                <Fab type="submit" className="input__add" color="secondary" aria-label="Add">
                     <AddIcon />
                 </Fab>
             </div>

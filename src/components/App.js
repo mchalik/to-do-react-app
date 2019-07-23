@@ -12,7 +12,8 @@ class App extends Component {
             history: [
                 []
             ],
-            input: 'Дело'
+            input: 'Дело',
+            currentView: 0
         };
         this.handleChange = this.handleChange.bind(this);
         this.addDeed = this.addDeed.bind(this);
@@ -38,18 +39,14 @@ class App extends Component {
             history: historyCopy,
             input: ''
         });
-        console.log('copy', historyCopy);
-        console.log('original', this.state.history);
+
     }
     deleteDeed(num) {
         const historyCopy = this.state.history.slice();
         const lastEntry = historyCopy[historyCopy.length - 1];
-        console.log('lastEntry', lastEntry);
         const reducedEntry = lastEntry.filter(({order}) => order !== num );
-        console.log('reducedEntry', reducedEntry);
 
-        historyCopy.push([...lastEntry, reducedEntry]);
-        
+        historyCopy.push(reducedEntry);
         this.setState({
             history: historyCopy
         })
@@ -70,6 +67,8 @@ class App extends Component {
                 <h1>Список Дел</h1>
                 <Input currentValue={this.state.input} onChange={this.handleChange} addDeed={this.addDeed} />
                 {thingsList}
+
+                {this.currentView && button}
             </Container>
         );
     }

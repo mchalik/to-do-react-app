@@ -55,7 +55,7 @@ class App extends Component {
         })
     }
     render() {
-        const current = this.state.history[this.state.history.length - 1];
+        const current = this.state.history[this.state.currentView];
         const thingsList = current.map(item => (
             <Deed
                 deedName={item.name}

@@ -26,14 +26,9 @@ class App extends Component {
     }
     addDeed(e) {
         e.preventDefault();
-        console.log(e);
         if (this.state.input === '') return;
-        console.log('HISTORY', this.state.history);
-        const historyCopy = this.state.history.slice(0, this.state.currentView);
-        console.log('historyCopy', historyCopy);
-        const lastEntry = historyCopy[this.state.currentView] || [];
-        console.log('lastEntry', lastEntry);
-        debugger;
+        const historyCopy = deepClone(this.state.history.slice(0, this.state.currentView + 1));
+        const lastEntry = historyCopy[this.state.currentView];
         historyCopy.push([...lastEntry, {
             name: this.state.input,
             done: false,
@@ -48,14 +43,12 @@ class App extends Component {
 
     }
     checkDeed( num ) {
-        const historyCopy = deepClone(this.state.history.slice(0, this.state.currentView));
-        const lastEntry = deepClone(historyCopy[this.state.currentView]);
-        console.log( 'NUM', num );
+        const historyCopy = deepClone(this.state.history.slice(0, this.state.currentView + 1));
+        const lastEntry = historyCopy[this.state.currentView];
         const newEntry = lastEntry.map((item) => {
             if (item.order === num) item.done = !item.done;
             return item;
         });
-        console.log( newEntry );
 
         historyCopy.push(newEntry);
 
@@ -66,7 +59,7 @@ class App extends Component {
 
     }
     deleteDeed( num ) {
-        const historyCopy = this.state.history.slice(0, this.state.currentView);
+        const historyCopy = deepClone(this.state.history.slice(0, this.state.currentView + 1));
         const lastEntry = historyCopy[this.state.currentView];
         const reducedEntry = lastEntry.filter(({order}) => order !== num );
 
@@ -82,14 +75,12 @@ class App extends Component {
             if (this.state.currentView === 0) return;
             this.setState({
                 currentView: this.state.currentView - 1
-            }, () => console.log(this.state))
+            });
         } else if (direction === 'forth'){
-            console.log(this.state.currentView);
-            console.log(this.state.history.length);
             if (this.state.currentView + 1 === this.state.history.length) return;
             this.setState({
                 currentView: this.state.currentView + 1
-            }, () => console.log(this.state));
+            });
         }
     }
     render() {

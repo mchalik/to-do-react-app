@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Container from '@material-ui/core/Container'
 import Input from './Input.js';
 import Deed from './Deed.js';
-import '../styles/App.css';
+import TimeTravel from './TimeTravel.js';
+import '../styles/App.scss';
 
 class App extends Component {
     constructor(props) {
@@ -27,32 +28,69 @@ class App extends Component {
         e.preventDefault();
         console.log(e);
         if (this.state.input === '') return;
-
-        const historyCopy = this.state.history.slice();
-        const lastEntry = historyCopy[historyCopy.length - 1];
-
+        console.log('HISTORY', this.state.history);
+        const historyCopy = this.state.history.slice(0, this.state.currentView);
+        console.log('historyCopy', historyCopy);
+        const lastEntry = historyCopy[this.state.currentView] || [];
+        console.log('lastEntry', lastEntry);
+        debugger;
         historyCopy.push([...lastEntry, {
             name: this.state.input,
             done: false,
-            order: historyCopy.length
+            order: historyCopy.length - 1
         }]);
+
         this.setState({
             history: historyCopy,
             input: '',
             currentView: this.state.currentView + 1
+        }, () => console.log(this.state));
+
+    }
+    checkDeed( num ) {
+        const historyCopy = deepClone(this.state.history.slice(0, this.state.currentView));
+        const lastEntry = deepClone(historyCopy[this.state.currentView]);
+        console.log( 'NUM', num );
+        const newEntry = lastEntry.map((item) => {
+            if (item.order === num) item.done = !item.done;
+            return item;
         });
+        console.log( newEntry );
+
+        historyCopy.push(newEntry);
+
+        this.setState({
+            history: historyCopy,
+            currentView: this.state.currentView + 1
+        }, () => console.log(this.state));
 
     }
     deleteDeed( num ) {
-        const historyCopy = this.state.history.slice();
-        const lastEntry = historyCopy[historyCopy.length - 1];
+        const historyCopy = this.state.history.slice(0, this.state.currentView);
+        const lastEntry = historyCopy[this.state.currentView];
         const reducedEntry = lastEntry.filter(({order}) => order !== num );
 
         historyCopy.push(reducedEntry);
+
         this.setState({
             history: historyCopy,
             currentView: this.state.currentView + 1
         })
+    }
+    turnStep( direction ) {
+        if (direction ==='back') {
+            if (this.state.currentView === 0) return;
+            this.setState({
+                currentView: this.state.currentView - 1
+            }, () => console.log(this.state))
+        } else if (direction === 'forth'){
+            console.log(this.state.currentView);
+            console.log(this.state.history.length);
+            if (this.state.currentView + 1 === this.state.history.length) return;
+            this.setState({
+                currentView: this.state.currentView + 1
+            }, () => console.log(this.state));
+        }
     }
     render() {
         const current = this.state.history[this.state.currentView];
@@ -61,6 +99,7 @@ class App extends Component {
                 deedName={item.name}
                 done={item.done}
                 deleteDeed={this.deleteDeed.bind(this, item.order)}
+                checkDeed={this.checkDeed.bind(this, item.order)}
                 key={item.order}
             />
         ));
@@ -71,10 +110,34 @@ class App extends Component {
                 <Input currentValue={this.state.input} onChange={this.handleChange} addDeed={this.addDeed} />
                 {thingsList}
 
-                {!!this.state.currentView && <div>Show something</div>}
+                {!!this.state.history.length && <TimeTravel
+                    goBack={ this.turnStep.bind(this, 'back') }
+                    goForth={ this.turnStep.bind(this, 'forth') }
+                />}
             </Container>
         );
     }
 }
 
 export default App;
+
+function deepClone(arrObj) {
+    if (!arrObj) return arrObj;
+    if (typeof arrObj !== 'object') return arrObj;
+
+    let newArrObj;
+    if (Array.isArray(arrObj)) {
+        newArrObj = [];
+    } else {
+        newArrObj = {};
+    }
+
+    for (let i in arrObj) {
+        if (typeof arrObj[i] === 'object') {
+            newArrObj[i] = deepClone(arrObj[i]);
+        } else {
+            newArrObj[i] = arrObj[i]
+        }
+    }
+    return newArrObj;
+}

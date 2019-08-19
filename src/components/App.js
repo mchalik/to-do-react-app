@@ -120,14 +120,14 @@ class App extends Component {
                         disabled={this.state.currentView === 0}
                         className="time-control__btn"
                     >
-                        Назад{this.state.currentView > 0}
+                        Назад
                     </TimeTravel>
                     <TimeTravel
                         action={this.turnStep.bind(this, 'forth')}
                         disabled={this.state.currentView + 1 === this.state.history.length}
                         className="time-control__btn"
                     >
-                        Вперед{this.state.currentView + 1 < this.state.history.length}
+                        Вперед
                     </TimeTravel>
                 </div>
             </Container>

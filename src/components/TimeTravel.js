@@ -1,26 +1,18 @@
 import React from "react";
-import IconButton from '@material-ui/core/IconButton';
-import { CSSTransitionGroup } from 'react-transition-group';
+import Button from '@material-ui/core/Button';
 import '../styles/TimeTravel.scss'
 
-function TimeTravel({goBack, goForth}) {
+function TimeTravel({action, children, disabled}) {
     return (
-            <div className='time-travel'>
-                <IconButton
-                    className="time-travel__button"
-                    aria-label="Step back"
-                    onClick={goBack}
-                >
-                    Назад
-                </IconButton>
-                <IconButton
-                    className="time-travel__button"
-                    aria-label="Step forth"
-                    onClick={goForth}
-                >
-                    Вперед
-                </IconButton>
-            </div>
+        <Button
+            className="time-travel-btn"
+            onClick={action}
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+        >
+            {children}
+        </Button>
     )
 }
 export default  TimeTravel

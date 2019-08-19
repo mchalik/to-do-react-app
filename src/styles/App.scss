@@ -1,73 +1,78 @@
-$font-stack: 'Roboto',sans-serif;
-
+$font-stack: 'Roboto', sans-serif;
 
 @font-face {
 
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
 }
 
 body {
-    font-family: $font-stack;
-    margin-top: 150px;
+  font-family: $font-stack;
+  margin-top: 150px;
 
-    #logo {
-        width: 10rem;
+  #logo {
+    width: 10rem;
+  }
+  .container {
+    position: relative;
+    text-align: center;
+
+    img {
+      width: 20rem;
     }
-    .container {
-        text-align: center;
+    &__time-control {
+      position: absolute;
+      right: 0;
+      top: -72px;
+    }
+  }
 
-        img {
-            width: 20rem;
-        }
+  .input {
+    display: flex;
+    margin-bottom: 24px;
+
+    &__add {
+      margin-left: 16px;
+      flex-shrink: 0;
+    }
+  }
+
+  .deed {
+    display: flex;
+    align-items: center;
+    animation: fadeIn, .3s;
+
+    &__delete {
+      margin-left: auto;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
     }
 
-    .input {
-        display: flex;
-        margin-bottom: 24px;
-
-        &__add {
-            margin-left: 16px;
-            flex-shrink: 0;
-        }
+    to {
+      opacity: 1;
     }
-
-    .deed {
-        display: flex;
-        align-items: center;
-        animation: fadeIn, .3s;
-
-        &__delete {
-            margin-left: auto;
-        }
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
+  }
 }
 
 .example-appear {
-    opacity: 0.01;
+  opacity: 0.01;
 }
 
 .example-appear.example-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
+  opacity: 1;
+  transition: opacity 500ms ease-in;
 }
 
 .example-leave {
-    opacity: 1;
+  opacity: 1;
 }
 
 .example-leave.example-leave-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }

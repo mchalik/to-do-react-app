@@ -6,7 +6,6 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import '../styles/Deed.scss'
 
 function Deed({deedName, done, deleteDeed, checkDeed}) {
-    console.log('done', done);
     return (
         <CSSTransitionGroup
             transitionName="example"

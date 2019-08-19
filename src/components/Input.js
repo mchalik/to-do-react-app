@@ -4,7 +4,7 @@ import Fab from "@material-ui/core/Fab/Fab";
 import AddIcon from '@material-ui/icons/Add';
 import '../styles/Input.scss';
 
-function Input({currentValue, onChange, addDeed}) {
+function Input({currentValue, onChange, addDeed, curRef}) {
     return (
         <form onSubmit={addDeed} action="">
             <div className="input">
@@ -12,6 +12,7 @@ function Input({currentValue, onChange, addDeed}) {
                     margin="normal"
                     onChange={onChange}
                     value={currentValue}
+                    inputProps={{ref: curRef}}
                     fullWidth
                 />
                 <Fab type="submit" className="input__add" color="secondary" aria-label="Add">

@@ -8,9 +8,14 @@ body {
   body #logo {
     width: 10rem; }
   body .container {
+    position: relative;
     text-align: center; }
     body .container img {
       width: 20rem; }
+    body .container__time-control {
+      position: absolute;
+      right: 0;
+      top: -72px; }
   body .input {
     display: flex;
     margin-bottom: 24px; }
